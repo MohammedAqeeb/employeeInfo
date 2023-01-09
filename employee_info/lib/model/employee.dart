@@ -6,13 +6,7 @@ part 'employee.g.dart';
 @JsonSerializable(createToJson: false)
 class Employee {
   @JsonKey(defaultValue: '')
-  final String eName,
-      email,
-      eId,
-      department,
-      designation,
-      phoneNumer,
-      wokingYears;
+  final String eName, email, eId, department, designation, phoneNumber;
 
   @JsonKey(fromJson: timestampToDateTime)
   final DateTime? doj;
@@ -26,8 +20,7 @@ class Employee {
     required this.eId,
     required this.department,
     required this.designation,
-    required this.phoneNumer,
-    required this.wokingYears,
+    required this.phoneNumber,
     this.doj,
     required this.isActive,
   });

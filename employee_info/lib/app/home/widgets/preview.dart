@@ -1,3 +1,4 @@
+import 'package:employee_info/app/home/detail_screen.dart';
 import 'package:employee_info/model/employee.dart';
 import 'package:flutter/material.dart';
 
@@ -17,40 +18,82 @@ class HomeWidgetPreview extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Material(
-      // color:
-      // petsAnimal.adopted == true ? const Color(0xFFD3D3D3) : Colors.white,
-      elevation: 5,
-      borderRadius: BorderRadius.circular(5),
-      child: InkWell(
-        onTap: () {
-          // navigate to details screen
-          //
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => DetailPageScreen(
-          //       petsModel: petsAnimal,
-          //     ),
-          //   ),
-          // );
-        },
-        highlightColor: Colors.black,
+    // to calculate number of years working
+    DateTime doj = employee.doj!;
+    // difference doj with current date
+    var years = DateTime.now().difference(doj);
+    // we get total working years
+    var totalWokingYears = years.inDays ~/ 365;
+    return InkWell(
+      onTap: () {
+        // navigate to details screen
+        //
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailScreen(
+              employee: employee,
+            ),
+          ),
+        );
+      },
+      child: Material(
+        // totalWokingYears isequal or morethan 5 then change background color to green
+        color: totalWokingYears >= 5
+            ? const Color.fromARGB(255, 134, 231, 101)
+            : Colors.white,
+        elevation: 10,
+        borderRadius: BorderRadius.circular(5),
         child: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(12),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  _buildeIdText(context),
-                  _buildEnameText(context),
-                  _buildDesText(context),
+                  Container(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        right: BorderSide(
+                          width: 1.0,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Employee Id",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        _buildeIdText(context),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Flex(
+                      direction: Axis.vertical,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildEnameText(context),
+                            const SizedBox(height: 10),
+                            _buildDesText(context),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -58,62 +101,49 @@ class HomeWidgetPreview extends StatelessWidget {
     );
   }
 
+  /// widget displays an employee id obtained from the firebase.
+  ///
   Widget _buildeIdText(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 12,
       ),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              employee.eId,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ],
-        ),
+      child: Text(
+        employee.eId,
+        style: Theme.of(context).textTheme.headline6,
       ),
     );
   }
 
+  /// widget displays an employee name obtained from the firebase.
+  ///
   Widget _buildEnameText(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 12,
       ),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              employee.eName,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ],
+      child: Text(
+        'Name : ${employee.eName.toUpperCase()}',
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
         ),
+        maxLines: 3,
       ),
     );
   }
 
+  /// widget displays an designation obtained from the firebase.
+  ///
   Widget _buildDesText(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 12,
       ),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              employee.designation,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ],
-        ),
+      child: Text(
+        'Role : ${employee.designation}',
+        style: Theme.of(context).textTheme.titleMedium,
+        maxLines: 3,
       ),
     );
   }

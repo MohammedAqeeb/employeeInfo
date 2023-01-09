@@ -25,12 +25,15 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     ref.watch(employeeDetailsPr);
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.2,
         title: const Text('Employee Info'),
+        centerTitle: true,
       ),
       body: _buildBody(context),
     );
   }
 
+  // body contains employees list in CustomScrollView
   Widget _buildBody(BuildContext context) {
     return CustomScrollView(
       slivers: [

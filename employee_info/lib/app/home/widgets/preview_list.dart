@@ -12,15 +12,20 @@ class HomeWidgetPreviewList extends ConsumerWidget {
   late EmployeeDetailsService service;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //  provider to read service
     service = ref.read(employeeDetailsPr);
     Widget build = const SliverToBoxAdapter(
       child: SizedBox(),
     );
+    // check weater employee is empty or not
     if (service.loading == true) {
+      // show loader
       build = _buildLoading(context);
     } else if (service.employee.isEmpty) {
+      // if empty then display empty messgae
       build = _buildListEmpty(context);
     } else if (service.employee.isNotEmpty) {
+      // if not empty then build list of employee
       build = _buildList(context);
     }
     return build;
@@ -36,6 +41,8 @@ class HomeWidgetPreviewList extends ConsumerWidget {
     );
   }
 
+  /// widget to display empty messgae
+  ///
   Widget _buildListEmpty(BuildContext context) {
     return SliverFillRemaining(
       child: Padding(
@@ -56,13 +63,16 @@ class HomeWidgetPreviewList extends ConsumerWidget {
     );
   }
 
+  /// sliver list convert list into single data and
+  /// pass the argument to HomeWidgetPreview
+  ///
   Widget _buildList(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+              horizontal: 12,
               vertical: 4,
             ),
             child: HomeWidgetPreview(

@@ -12,8 +12,7 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       eId: json['eId'] as String? ?? '',
       department: json['department'] as String? ?? '',
       designation: json['designation'] as String? ?? '',
-      phoneNumer: json['phoneNumer'] as String? ?? '',
-      wokingYears: json['wokingYears'] as String? ?? '',
+      phoneNumber: json['phoneNumber'] as String? ?? '',
       doj: Employee.timestampToDateTime(json['doj'] as Timestamp?),
       isActive: json['isActive'] as bool? ?? false,
     );

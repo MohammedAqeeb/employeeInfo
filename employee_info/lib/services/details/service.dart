@@ -6,12 +6,16 @@ class EmployeeDetailsService with ChangeNotifier {
   final _db = FirebaseFirestore.instance;
 
   late Query _query;
+  // show data 
   int pagination = 10;
 
+  // add the data to employee list
   List<Employee> employee = [];
   bool loading = true;
   bool moreAvailable = true;
 
+  /// Function to get employee details from firebase
+  ///
   Future<void> getDoc() async {
     employee.clear();
     loading = true;
@@ -26,6 +30,8 @@ class EmployeeDetailsService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Function to convert firestore documents to dart  objects
+  ///
   void firestoreToDoc(List<DocumentSnapshot> document) {
     if (document.isEmpty) {
       moreAvailable = false;
@@ -39,8 +45,6 @@ class EmployeeDetailsService with ChangeNotifier {
             doc.data() as Map<String, dynamic>,
           ),
         );
-        print('sservices.dart');
-        print(doc.data());
       }
     }
   }

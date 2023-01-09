@@ -7,7 +7,10 @@ import 'app/home/screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Firebase initialized
   await Firebase.initializeApp();
+  
+  // Wrapping ProviderScope for using river pod
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -24,6 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
     );
   }
