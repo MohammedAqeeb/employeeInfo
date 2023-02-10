@@ -2,6 +2,8 @@ import 'package:employee_info/app/home/detail_screen.dart';
 import 'package:employee_info/model/employee.dart';
 import 'package:flutter/material.dart';
 
+import '../../edit/screen.dart';
+
 class HomeWidgetPreview extends StatelessWidget {
   final Employee employee;
   const HomeWidgetPreview({
